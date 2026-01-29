@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVPG Book Exam System</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+            --background: #f8fafc;
+            --card-bg: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--background); color: var(--text-primary); line-height: 1.6; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .header { background: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 1rem 0; text-align: center; margin-bottom: 2rem; }
+        .header h1 { color: var(--primary-color); font-size: 1.75rem; }
+        .btn { display: inline-block; padding: 0.75rem 1.5rem; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.2s; }
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+        .btn-secondary { background: var(--background); color: var(--text-primary); border: 1px solid var(--border-color); }
+        .card { background: var(--card-bg); border-radius: 12px; padding: 1.5rem; box-shadow: var(--shadow); margin-bottom: 1rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; }
+        .form-group input { width: 100%; padding: 0.75rem 1rem; border: 2px solid var(--border-color); border-radius: 8px; font-size: 1rem; }
+        .form-group input:focus { outline: none; border-color: var(--primary-color); }
+        .options { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0; }
+        .option { display: flex; align-items: flex-start; padding: 1rem; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .option:hover { border-color: var(--primary-color); background: #f0f7ff; }
+        .option input { display: none; }
+        .option-letter { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--background); border-radius: 50%; font-weight: 700; margin-right: 1rem; flex-shrink: 0; }
+        .option input:checked + .option-letter { background: var(--primary-color); color: white; }
+        .progress-bar { height: 8px; background: var(--border-color); border-radius: 4px; margin-bottom: 1rem; }
+        .progress { height: 100%; background: var(--primary-color); border-radius: 4px; transition: width 0.3s; }
+        .nav-buttons { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .nav-buttons .btn { flex: 1; text-align: center; }
+        .score-circle { width: 150px; height: 150px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 2rem auto; border: 8px solid var(--border-color); font-size: 2.5rem; font-weight: 700; }
+        .score-circle.passed { border-color: var(--success-color); color: var(--success-color); }
+        .score-circle.failed { border-color: var(--danger-color); color: var(--danger-color); }
+        .missed-item { background: #fff5f5; border-left: 4px solid var(--danger-color); padding: 1rem; margin-bottom: 0.75rem; border-radius: 0 8px 8px 0; }
+        .exam-select-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .exam-option { text-align: center; padding: 1.5rem; cursor: pointer; }
+        .exam-option:hover { background: #f0f7ff; }
+        .exam-option h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+    </style>
+</head>
+<body>
+    <header class="header"><h1>SVPG Book Exam System</h1></header>
+    <div class="container">
+        <div id="step-name" class="card">
+            <h2 class="mb-1">Welcome!</h2>
+            <p class="mb-1">Test your knowledge of Silicon Valley Product Group books.</p>
+            <form onsubmit="return submitName(event)">
+                <div class="form-group">
+                    <label for="student-name">Enter Your Full Name:</label>
+                    <input type="text" id="student-name" required placeholder="John Doe">
+                </div>
+                <button type="submit" class="btn btn-primary">Continue</button>
+            </form>
+        </div>
+        <div id="step-select" class="card hidden">
+            <h2 class="mb-1">Select an Exam</h2>
+            <p class="mb-1">Student: <strong id="display-name"></strong></p>
+            <div class="exam-select-grid">
+                <div class="card exam-option" onclick="startExam('loved')"><h3>LOVED</h3><p>Product Marketing</p><small>Martina Lauchengco</small></div>
+                <div class="card exam-option" onclick="startExam('inspired')"><h3>INSPIRED</h3><p>Product Management</p><small>Marty Cagan</small></div>
+                <div class="card exam-option" onclick="startExam('transformed')"><h3>TRANSFORMED</h3><p>Operating Model</p><small>Marty Cagan</small></div>
+                <div class="card exam-option" onclick="startExam('empowered')"><h3>EMPOWERED</h3><p>Product Leadership</p><small>Marty Cagan & Chris Jones</small></div>
+            </div>
+        </div>
+        <div id="step-exam" class="card hidden">
+            <h2 id="exam-title" class="mb-1"></h2>
+            <div class="progress-bar"><div class="progress" id="progress"></div></div>
+            <p class="text-center mb-1">Question <span id="current-q">1</span> of <span id="total-q">10</span></p>
+            <div id="question-container"></div>
+        </div>
+        <div id="step-results" class="card hidden">
+            <h2 class="text-center mb-1">Exam Results</h2>
+            <div id="result-info"></div>
+            <div class="score-circle" id="score-circle">0%</div>
+            <div id="result-details" class="text-center"></div>
+            <div id="missed-questions" class="mt-2"></div>
+            <div class="nav-buttons mt-2">
+                <button class="btn btn-secondary" onclick="downloadResults()">Download JSON</button>
+                <button class="btn btn-primary" onclick="resetExam()">Take Another Exam</button>
+            </div>
+        </div>
+    </div>
+    <script>
+const EXAMS = {
+    loved: {
+        id: "EXAM-LOVED-001", title: "LOVED: How to Rethink Marketing for Tech Products", author: "Martina Lauchengco",
+        answers: ["B", "C", "B", "C", "B", "B", "C", "A", "C", "B"],
+        questions: [
+            { text: "According to LOVED, what is the main reason great products don't always win in the marketplace?", options: { A: "They lack funding for development", B: "They get beaten by products with stronger product marketing", C: "The engineering team is not skilled enough", D: "They are released too early" } },
+            { text: "What are the four fundamental roles of Product Marketing Managers (PMMs) according to LOVED?", options: { A: "Developer, Designer, Tester, Manager", B: "Planner, Executor, Analyzer, Reporter", C: "Ambassador, Strategist, Storyteller, Evangelist", D: "Researcher, Writer, Presenter, Closer" } },
+            { text: "What does the 'Ambassador' role in product marketing primarily involve?", options: { A: "Creating sales presentations", B: "Deep market empathy—understanding customers, market, and competition", C: "Writing press releases", D: "Managing the product roadmap" } },
+            { text: "The 'Strategist' role in PMM is responsible for:", options: { A: "Writing code for the product", B: "Hiring new team members", C: "Directing the go-to-market strategy and coordinating execution", D: "Setting the company's financial goals" } },
+            { text: "According to LOVED, what does the 'Storyteller' role accomplish?", options: { A: "Writes user documentation", B: "Crafts compelling narratives that shape market perception", C: "Creates internal company newsletters", D: "Develops training materials for engineers" } },
+            { text: "What is the primary function of the 'Evangelist' role?", options: { A: "Recruiting new employees", B: "Enabling others to tell your story and creating raving fans", C: "Managing customer support tickets", D: "Setting product pricing" } },
+            { text: "According to LOVED, when should product marketing be involved in the product lifecycle?", options: { A: "Only at the product launch", B: "Only after the product has achieved market fit", C: "Throughout the product lifecycle, not just at launch", D: "Only during the sales phase" } },
+            { text: "What does LOVED say about the relationship between product/market fit and go-to-market?", options: { A: "Product/market fit is necessary but not sufficient for success", B: "Product/market fit guarantees market success", C: "Go-to-market is more important than product/market fit", D: "They are completely unrelated concepts" } },
+            { text: "What is the foundation for all other PMM activities according to LOVED?", options: { A: "Sales enablement", B: "Press relations", C: "Market empathy", D: "Competitive pricing" } },
+            { text: "According to LOVED, what is the key difference between products that lead and products that languish?", options: { A: "The amount of funding they receive", B: "Product marketing", C: "The size of the engineering team", D: "The number of features" } }
+        ]
+    },
+    inspired: {
+        id: "EXAM-INSPIRED-001", title: "INSPIRED: How to Create Tech Products Customers Love", author: "Marty Cagan",
+        answers: ["B", "B", "B", "B", "B", "B", "D", "B", "B", "B"],
+        questions: [
+            { text: "What is the 'Feature Factory' problem described in INSPIRED?", options: { A: "Companies don't have enough engineers", B: "Companies receive requirements, build features, and measure success by output rather than outcomes", C: "Products have too many features", D: "Features are built too slowly" } },
+            { text: "What are the 'Two Inconvenient Truths' mentioned in INSPIRED?", options: { A: "Products are expensive and take too long to build", B: "At least half of product ideas won't work, and even good ideas require multiple iterations", C: "Engineers are hard to find and retain", D: "Markets are unpredictable and customers are fickle" } },
+            { text: "What characterizes an 'Empowered Team' versus a 'Feature Team'?", options: { A: "Empowered teams have larger budgets", B: "Empowered teams are given problems to solve and measured on outcomes", C: "Empowered teams work longer hours", D: "Empowered teams have more senior engineers" } },
+            { text: "What is 'The Product Trio' according to INSPIRED?", options: { A: "CEO, CTO, and CFO", B: "Product Manager, Product Designer, and Tech Lead", C: "Marketing, Sales, and Engineering", D: "Strategy, Execution, and Delivery" } },
+            { text: "What are the four risks that great product teams address before building?", options: { A: "Budget, Timeline, Scope, Quality", B: "Value, Usability, Feasibility, and Viability", C: "Technical, Financial, Legal, and Operational", D: "Market, Product, Team, and Timing" } },
+            { text: "What is Product Discovery according to INSPIRED?", options: { A: "Finding new product ideas from competitors", B: "Learning fast and cheap before building to validate ideas with minimal investment", C: "Discovering customer contact information", D: "Finding new markets for existing products" } },
+            { text: "Which of the following is NOT mentioned as a discovery technique in INSPIRED?", options: { A: "Prototyping", B: "Usability Testing", C: "Fake Door Tests", D: "Large-scale product launches" } },
+            { text: "What is the difference between Product Vision and Product Strategy?", options: { A: "Vision is short-term, Strategy is long-term", B: "Vision is the future you want to create (3-10 years), Strategy is how you'll achieve it", C: "Vision is for executives, Strategy is for engineers", D: "They are the same thing" } },
+            { text: "According to INSPIRED, what does 'Value Risk' address?", options: { A: "Whether the company can afford to build the product", B: "Will customers buy or use it?", C: "Whether the product will be profitable", D: "The market value of the company" } },
+            { text: "What principle does INSPIRED emphasize for product teams?", options: { A: "Fall in love with the solution", B: "Fall in love with the problem, not the solution", C: "Fall in love with the technology", D: "Fall in love with the competition" } }
+        ]
+    },
+    transformed: {
+        id: "EXAM-TRANSFORMED-001", title: "TRANSFORMED: Moving to the Product Operating Model", author: "Marty Cagan & SVPG Partners",
+        answers: ["B", "B", "B", "C", "B", "B", "B", "B", "B", "B"],
+        questions: [
+            { text: "What is the Product Operating Model according to TRANSFORMED?", options: { A: "A rigid process for software development", B: "A set of first principles the best companies believe to be true about how to create technology-powered solutions", C: "A new Agile framework", D: "A project management methodology" } },
+            { text: "What is a common reason why product transformations fail?", options: { A: "Companies invest too much money", B: "Companies retitle people without training them and expect transformation without CEO commitment", C: "Engineering teams resist all changes", D: "Products are too complex" } },
+            { text: "What are the three dimensions of transformation described in TRANSFORMED?", options: { A: "People, Process, Technology", B: "How You Build (Delivery), How You Solve Problems (Discovery), How You Decide What to Solve (Strategy)", C: "Planning, Execution, Review", D: "Culture, Structure, Systems" } },
+            { text: "According to TRANSFORMED, what is the minimum acceptable release frequency?", options: { A: "Once per year", B: "Once per quarter", C: "Every 2 weeks (though that's nothing to brag about)", D: "Once per month" } },
+            { text: "What does TRANSFORMED say about the project model?", options: { A: "It's the best way to build products", B: "It loses accumulated learning when teams disband", C: "It should be used for all major initiatives", D: "It's more efficient than persistent teams" } },
+            { text: "What role does the CEO play in transformation according to TRANSFORMED?", options: { A: "CEOs should delegate transformation entirely to the CTO", B: "CEO must be the key evangelist and champion of the change", C: "CEOs should focus only on financial matters", D: "CEO involvement is optional" } },
+            { text: "What principle from Spotify does TRANSFORMED cite?", options: { A: "Move fast and break things", B: "100% predictability = 0% innovation", C: "Fail fast, fail often", D: "Customer is always right" } },
+            { text: "What won't work in transformation according to TRANSFORMED?", options: { A: "Investing in employee training", B: "Renaming business analysts as 'product managers' without real change", C: "Hiring experienced product leaders", D: "Adopting new tools and technologies" } },
+            { text: "What must product leaders do according to TRANSFORMED?", options: { A: "Blame executives for all problems", B: "Stop blaming executives and raise the skill level of their own people first", C: "Focus only on hiring external talent", D: "Avoid taking risks" } },
+            { text: "How should stakeholder objections be addressed according to TRANSFORMED?", options: { A: "Ignore them completely", B: "Answer objections with evidence, not arguments, and demonstrate outcomes", C: "Escalate all objections to the CEO", D: "Avoid stakeholders entirely" } }
+        ]
+    },
+    empowered: {
+        id: "EXAM-EMPOWERED-001", title: "EMPOWERED: Ordinary People, Extraordinary Products", author: "Marty Cagan & Chris Jones",
+        answers: ["B", "B", "B", "B", "C", "B", "B", "B", "B", "B"],
+        questions: [
+            { text: "According to EMPOWERED, what is the root cause of why companies fail to innovate?", options: { A: "Lack of talented engineers", B: "Weak product leadership, not weak teams", C: "Insufficient funding", D: "Too much competition" } },
+            { text: "What does EMPOWERED identify as the single most important skill for product leaders?", options: { A: "Technical expertise", B: "Coaching", C: "Financial management", D: "Public speaking" } },
+            { text: "What are the three critical differences between the best companies and the rest?", options: { A: "Salary, Benefits, Culture", B: "Role of Technology, Role of Product Leaders, Purpose of Product Teams", C: "Size, Industry, Location", D: "Revenue, Profit, Growth" } },
+            { text: "What are the three dimensions of the coaching framework mentioned in EMPOWERED?", options: { A: "Technical, Business, Design", B: "Product Knowledge, Process Skills, People Skills", C: "Strategy, Execution, Delivery", D: "Vision, Mission, Values" } },
+            { text: "How much time should leaders spend developing people according to EMPOWERED?", options: { A: "10% of their time", B: "25% of their time", C: "50% or more of their time", D: "As little as possible" } },
+            { text: "What is the 'Empowerment Litmus Test' in EMPOWERED?", options: { A: "Can the team hire their own members?", B: "Can the team decide the best way to solve their assigned problems?", C: "Does the team have unlimited budget?", D: "Is the team larger than 10 people?" } },
+            { text: "According to EMPOWERED, who owns Product Vision and Strategy?", options: { A: "Individual contributor Product Managers", B: "Product LEADERS (not IC PMs)", C: "Engineering teams", D: "External consultants" } },
+            { text: "What does the 'Context & Coaching' leadership model emphasize over 'Command & Control'?", options: { A: "Telling teams what to build", B: "Giving teams problems to solve and measuring outcomes", C: "Managing task lists", D: "Making all decisions at the top" } },
+            { text: "What Bill Campbell quote does EMPOWERED reference about leadership?", options: { A: "Move fast and break things", B: "Leadership is about recognizing greatness in everyone and creating an environment where it can emerge", C: "The customer is always right", D: "Fail fast, fail often" } },
+            { text: "According to EMPOWERED, how is Product Vision used as a tool?", options: { A: "Only for financial planning", B: "For recruiting, evangelism, decision-making, motivation, and communication", C: "Only for investor presentations", D: "Only for marketing campaigns" } }
+        ]
+    }
+};
+
+let studentName = '', currentExam = null, currentQuestion = 0, studentAnswers = [], lastResult = null;
+
+function submitName(e) {
+    e.preventDefault();
+    studentName = document.getElementById('student-name').value.trim();
+    if (!studentName) return false;
+    localStorage.setItem('svpg_student_name', studentName);
+    document.getElementById('display-name').textContent = studentName;
+    showStep('step-select');
+    return false;
+}
+
+function startExam(examKey) {
+    currentExam = EXAMS[examKey];
+    currentQuestion = 0;
+    studentAnswers = [];
+    document.getElementById('exam-title').textContent = currentExam.title;
+    document.getElementById('total-q').textContent = currentExam.questions.length;
+    showQuestion();
+    showStep('step-exam');
+}
+
+function showQuestion() {
+    const q = currentExam.questions[currentQuestion];
+    const total = currentExam.questions.length;
+    document.getElementById('current-q').textContent = currentQuestion + 1;
+    document.getElementById('progress').style.width = ((currentQuestion) / total * 100) + '%';
+    let html = `<div><p style="font-size:1.1rem;margin-bottom:1rem"><strong>Q${currentQuestion + 1}:</strong> ${q.text}</p><div class="options">`;
+    for (const [letter, text] of Object.entries(q.options)) {
+        const checked = studentAnswers[currentQuestion] === letter ? 'checked' : '';
+        html += `<label class="option"><input type="radio" name="answer" value="${letter}" ${checked} onchange="selectAnswer('${letter}')"><span class="option-letter">${letter}</span><span>${text}</span></label>`;
+    }
+    html += `</div><div class="nav-buttons">`;
+    if (currentQuestion > 0) html += `<button class="btn btn-secondary" onclick="prevQuestion()">← Previous</button>`;
+    html += currentQuestion < total - 1 ? `<button class="btn btn-primary" onclick="nextQuestion()">Next →</button>` : `<button class="btn btn-primary" onclick="submitExam()">Submit</button>`;
+    html += `</div></div>`;
+    document.getElementById('question-container').innerHTML = html;
+}
+
+function selectAnswer(letter) { studentAnswers[currentQuestion] = letter; }
+function nextQuestion() { if (!studentAnswers[currentQuestion]) { alert('Please select an answer.'); return; } currentQuestion++; showQuestion(); }
+function prevQuestion() { currentQuestion--; showQuestion(); }
+
+function submitExam() {
+    if (!studentAnswers[currentQuestion]) { alert('Please select an answer.'); return; }
+    let correct = 0; const missed = [];
+    for (let i = 0; i < currentExam.answers.length; i++) {
+        if (studentAnswers[i] === currentExam.answers[i]) correct++;
+        else missed.push({ question: i + 1, text: currentExam.questions[i].text, yours: studentAnswers[i] || '(none)', correct: currentExam.answers[i] });
+    }
+    const score = Math.round((correct / currentExam.answers.length) * 100);
+    const passed = score >= 70;
+    lastResult = { submission: { exam_id: currentExam.id, student_name: studentName, responses: studentAnswers, timestamp: new Date().toISOString() }, grade_result: { exam_id: currentExam.id, exam_title: currentExam.title, student_name: studentName, score_percentage: score, passed, correct_answers: correct, total_questions: currentExam.answers.length, missed_questions: missed } };
+    document.getElementById('result-info').innerHTML = `<p><strong>Student:</strong> ${studentName}</p><p><strong>Exam:</strong> ${currentExam.title}</p><p><strong>Date:</strong> ${new Date().toLocaleString()}</p>`;
+    const circle = document.getElementById('score-circle');
+    circle.textContent = score + '%';
+    circle.className = 'score-circle ' + (passed ? 'passed' : 'failed');
+    document.getElementById('result-details').innerHTML = `<p>Correct: ${correct} / ${currentExam.answers.length}</p><p><strong>${passed ? '✓ PASSED' : 'NOT PASSED'}</strong></p>`;
+    let missedHtml = '';
+    if (missed.length > 0) { missedHtml = '<h3>Missed Questions:</h3>'; missed.forEach(m => { missedHtml += `<div class="missed-item"><strong>Q${m.question}:</strong> ${m.text}<br><small>Your answer: ${m.yours} | Correct: ${m.correct}</small></div>`; }); }
+    document.getElementById('missed-questions').innerHTML = missedHtml;
+    const results = JSON.parse(localStorage.getItem('svpg_exam_results') || '[]');
+    results.push(lastResult.grade_result);
+    localStorage.setItem('svpg_exam_results', JSON.stringify(results));
+    showStep('step-results');
+}
+
+function downloadResults() {
+    if (!lastResult) return;
+    const blob = new Blob([JSON.stringify(lastResult, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `exam_result_${studentName.replace(/\s+/g, '_')}_${currentExam.id}_${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function resetExam() { currentExam = null; currentQuestion = 0; studentAnswers = []; showStep('step-select'); }
+function showStep(stepId) { document.querySelectorAll('.card').forEach(el => el.classList.add('hidden')); document.getElementById(stepId).classList.remove('hidden'); }
+
+const savedName = localStorage.getItem('svpg_student_name');
+if (savedName) document.getElementById('student-name').value = savedName;
+    </script>
+</body>
+</html>

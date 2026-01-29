@@ -1,0 +1,30 @@
+# SVPG Book Exam System - Jekyll Configuration
+title: SVPG Book Exam System
+description: Multiple choice exams for Silicon Valley Product Group books
+baseurl: ""
+url: ""
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+
+# Collections
+collections:
+  exams:
+    output: true
+    permalink: /exams/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "exams"
+    values:
+      layout: "exam"

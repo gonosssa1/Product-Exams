@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  jekyll:
+    build: .
+    container_name: svpg-exam-system
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/srv/jekyll
+    environment:
+      - JEKYLL_ENV=development
+    command: bundle exec jekyll serve --host 0.0.0.0 --port 4000 --livereload
+
+  # Production build (static files only)
+  jekyll-build:
+    build: .
+    container_name: svpg-exam-build
+    volumes:
+      - .:/srv/jekyll
+      - ./_site:/srv/jekyll/_site
+    command: bundle exec jekyll build
+    profiles:
+      - build
