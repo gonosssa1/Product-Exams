@@ -11,14 +11,25 @@ title: Home
 <div class="card exam-list">
     <h3>Select an Exam</h3>
     <div class="exam-select-grid four-columns">
-        {% assign exam_order = "inspired,empowered,loved,transformed" | split: "," %}
-        {% for exam_name in exam_order %}
-            {% assign exam = site.exams | where: "slug", exam_name | first %}
-            <a href="{{ exam.url | relative_url }}" class="card exam-option">
-                <h3>{{ exam.title | split: ':' | first }}</h3>
-                <p>{{ exam.title | split: ':' | last | strip }}</p>
-                <small>{{ exam.author }}</small>
-            </a>
-        {% endfor %}
+        <a href="{{ '/exams/inspired/' | relative_url }}" class="card exam-option">
+            <h3>INSPIRED</h3>
+            <p>How to Create Tech Products Customers Love</p>
+            <small>Marty Cagan</small>
+        </a>
+        <a href="{{ '/exams/empowered/' | relative_url }}" class="card exam-option">
+            <h3>EMPOWERED</h3>
+            <p>Ordinary People, Extraordinary Products</p>
+            <small>Marty Cagan & Chris Jones</small>
+        </a>
+        <a href="{{ '/exams/loved/' | relative_url }}" class="card exam-option">
+            <h3>LOVED</h3>
+            <p>How to Rethink Marketing for Tech Products</p>
+            <small>Martina Lauchengco</small>
+        </a>
+        <a href="{{ '/exams/transformed/' | relative_url }}" class="card exam-option">
+            <h3>TRANSFORMED</h3>
+            <p>Moving to the Product Operating Model</p>
+            <small>Marty Cagan & SVPG Partners</small>
+        </a>
     </div>
 </div>
