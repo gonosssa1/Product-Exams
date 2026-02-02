@@ -1,0 +1,20 @@
+{
+  "name": "wsjf-exam",
+  "version": "1.0.0",
+  "description": "Multiple choice exam system for WSJF (Weighted Shortest Job First) from Scaled Agile Framework",
+  "main": "exam-app.js",
+  "scripts": {
+    "start": "node exam-app.js",
+    "grade": "node grader.js"
+  },
+  "keywords": [
+    "exam",
+    "wsjf",
+    "safe",
+    "scaled-agile",
+    "prioritization",
+    "assessment"
+  ],
+  "author": "WSJF Exam System",
+  "license": "MIT"
+}
