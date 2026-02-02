@@ -1,185 +1,253 @@
-# SVPG Book Exam System - Jekyll Edition
+# Content Familiarity Exam System
 
-A web-based multiple choice exam system for Silicon Valley Product Group books, built with Jekyll and deployable in a Docker container.
+A web-based multiple choice exam platform for professional certification and content familiarity testing. Built with Jekyll and deployable via Docker or GitHub Pages.
 
-## 📚 Covered Books
+**Live Site:** [https://gonosssa1.github.io/Product-Exams/](https://gonosssa1.github.io/Product-Exams/)
 
-1. **LOVED** - How to Rethink Marketing for Tech Products (Martina Lauchengco)
-2. **INSPIRED** - How to Create Tech Products Customers Love (Marty Cagan)
-3. **TRANSFORMED** - Moving to the Product Operating Model (Marty Cagan & SVPG Partners)
-4. **EMPOWERED** - Ordinary People, Extraordinary Products (Marty Cagan & Chris Jones)
-
-## 🚀 Quick Start
-
-### Using Docker (Recommended)
-
-```bash
-# Build and run with Docker Compose
-docker-compose up
-
-# Or build and run with Docker directly
-docker build -t svpg-exam-jekyll .
-docker run -p 4000:4000 svpg-exam-jekyll
-```
-
-Access the exam system at: **http://localhost:4000**
-
-### Local Development (Without Docker)
-
-```bash
-# Install Ruby and Bundler first, then:
-bundle install
-bundle exec jekyll serve
-```
-
-### Build Static Site Only
-
-```bash
-# Using Docker Compose
-docker-compose --profile build run jekyll-build
-
-# Or with Jekyll directly
-bundle exec jekyll build
-```
-
-Static files will be in the `_site` directory.
-
-## 📁 Project Structure
-
-```
-svpg-exam-jekyll/
-├── _config.yml          # Jekyll configuration
-├── _layouts/
-│   ├── default.html     # Base layout
-│   └── exam.html        # Exam page layout
-├── _exams/              # Exam content files
-│   ├── loved.md
-│   ├── inspired.md
-│   ├── transformed.md
-│   └── empowered.md
-├── assets/
-│   ├── css/style.css    # Stylesheet
-│   └── js/exam-system.js # Exam logic
-├── exams/index.html     # Exam listing page
-├── results/index.html   # Results page
-├── index.html           # Home page
-├── Dockerfile           # Docker configuration
-├── docker-compose.yml   # Docker Compose config
-├── Gemfile              # Ruby dependencies
-└── README.md            # This file
-```
-
-## 🎯 Features
-
-- **Responsive Design**: Works on desktop and mobile
-- **Progress Tracking**: Visual progress bar during exams
-- **Instant Grading**: Results displayed immediately after submission
-- **Local Storage**: Results saved in browser localStorage
-- **JSON Export**: Download results for external grading
-- **Multiple Exams**: Take individual exams or all four
-
-## 📋 Exam Details
-
-| Exam ID | Book | Questions | Passing Score |
-|---------|------|-----------|---------------|
-| EXAM-LOVED-001 | LOVED | 10 | 70% |
-| EXAM-INSPIRED-001 | INSPIRED | 10 | 70% |
-| EXAM-TRANSFORMED-001 | TRANSFORMED | 10 | 70% |
-| EXAM-EMPOWERED-001 | EMPOWERED | 10 | 70% |
-
-## 📄 Result Format
-
-Downloaded results are in JSON format compatible with the Node.js grader:
-
-```json
-{
-  "submission": {
-    "exam_id": "EXAM-LOVED-001",
-    "student_name": "John Doe",
-    "responses": ["B", "C", "B", "C", "B", "B", "C", "A", "C", "B"],
-    "timestamp": "2024-01-01T12:00:00.000Z"
-  },
-  "grade_result": {
-    "score_percentage": 100,
-    "passed": true,
-    "correct_answers": 10,
-    "missed_questions": []
-  }
-}
-```
-
-## 🔧 Customization
-
-### Adding New Exams
-
-Create a new file in `_exams/` with the following format:
-
-```yaml
 ---
-layout: exam
-title: "Book Title"
-exam_id: "EXAM-NEWBOOK-001"
-author: "Author Name"
-answer_key: ["A", "B", "C", ...]
-questions:
-  - text: "Question text?"
-    difficulty: "Easy"
-    options:
-      - letter: "A"
-        text: "Option A"
-      - letter: "B"
-        text: "Option B"
-      - letter: "C"
-        text: "Option C"
-      - letter: "D"
-        text: "Option D"
+
+## Available Exams
+
+### SVPG "Product is Hard" Book Exams
+| Exam | Author | Questions | Passing Score |
+|------|--------|-----------|---------------|
+| **INSPIRED** | Marty Cagan | 10 | 70% (7/10) |
+| **EMPOWERED** | Marty Cagan & Chris Jones | 10 | 70% (7/10) |
+| **LOVED** | Martina Lauchengco | 10 | 70% (7/10) |
+| **TRANSFORMED** | Marty Cagan & SVPG Partners | 10 | 70% (7/10) |
+
+### Data Governance Exam
+| Exam | Source | Questions | Passing Score |
+|------|--------|-----------|---------------|
+| **Data Governance Primer** | DAMA-DMBOK Framework | 20 | 70% (14/20) |
+
+### Weighted Shortest Job First Exam
+| Exam | Source | Questions | Passing Score |
+|------|--------|-----------|---------------|
+| **WSJF** | Scaled Agile Framework (SAFe) | 20 | 70% (14/20) |
+
 ---
-```
 
-### Modifying Styles
+## Quick Start
 
-Edit `assets/css/style.css` to customize colors, fonts, and layout.
-
-## 🐳 Docker Commands
-
+### Using Docker Compose (Recommended)
 ```bash
 # Start development server with live reload
 docker-compose up
 
-# Build static site
+# Access at http://localhost:4000/Product-Exams/
+```
+
+### Local Development (Without Docker)
+```bash
+# Install dependencies
+bundle install
+
+# Start Jekyll server
+bundle exec jekyll serve
+
+# Access at http://localhost:4000/Product-Exams/
+```
+
+### Static Build Only
+```bash
+# Build static files to _site/
 docker-compose --profile build run jekyll-build
+
+# Or without Docker
+bundle exec jekyll build
+```
+
+---
+
+## Project Structure
+
+```
+Product-Exams/
+├── _config.yml              # Jekyll configuration
+├── _exams/                  # Exam content files
+│   ├── inspired.md          # SVPG: INSPIRED (10 questions)
+│   ├── empowered.md         # SVPG: EMPOWERED (10 questions)
+│   ├── loved.md             # SVPG: LOVED (10 questions)
+│   ├── transformed.md       # SVPG: TRANSFORMED (10 questions)
+│   ├── datagov.md           # Data Governance (20 questions)
+│   └── wsjf.md              # WSJF/SAFe (20 questions)
+├── _layouts/
+│   ├── default.html         # Base template
+│   └── exam.html            # Exam page template
+├── assets/
+│   ├── css/style.css        # Styles (Blue #003399 / Teal #0088A1)
+│   └── js/exam-system.js    # Exam logic and grading
+├── index.html               # Homepage with exam selection
+├── Dockerfile               # Ruby 3.2 container
+├── docker-compose.yml       # Dev and build services
+├── Gemfile                  # Ruby dependencies
+├── DataGovExam/             # CLI grading tool (Node.js)
+│   ├── exam-app.js
+│   └── grader.js
+└── WSJFExam/                # CLI grading tool (Node.js)
+    ├── exam-app (1).js
+    └── grader (1).js
+```
+
+---
+
+## Features
+
+- **Responsive Design** - Works on desktop, tablet, and mobile
+- **Progress Tracking** - Visual progress bar during exam
+- **Instant Grading** - Immediate results with score percentage
+- **Detailed Feedback** - Shows missed questions with correct answers
+- **localStorage Persistence** - Remembers student name across sessions
+- **JSON Export** - Download results for record-keeping
+- **Balanced Answer Distribution** - Equal distribution of A/B/C/D correct answers
+- **Multiple Exam Categories** - Product management, data governance, and SAFe frameworks
+
+---
+
+## Exam Content Details
+
+| Exam | Topics Covered |
+|------|----------------|
+| **INSPIRED** | Product discovery, empowered teams, product trio, four risks, feature factory problem |
+| **EMPOWERED** | Product leadership, coaching, context vs command, empowerment litmus test |
+| **LOVED** | Product marketing, PMM roles (Ambassador, Strategist, Storyteller, Evangelist) |
+| **TRANSFORMED** | Product operating model, transformation dimensions, CEO role, Spotify principles |
+| **Data Governance** | DAMA-DMBOK, data roles (Owner, Steward, Custodian), classification levels, data quality dimensions, lifecycle stages |
+| **WSJF** | Cost of Delay, relative estimation, Fibonacci sequence, SAFe prioritization, job sequencing |
+
+---
+
+## Adding New Exams
+
+Create a new markdown file in `_exams/` with this structure:
+
+```yaml
+---
+title: "Exam Title"
+author: "Author Name"
+exam_id: "EXAM-ID-001"
+description: "Brief description"
+answers: ["A", "B", "C", "D", "A", "B", "C", "D", "A", "B"]
+questions:
+  - text: "Question text here?"
+    options:
+      A: "Option A"
+      B: "Option B"
+      C: "Option C"
+      D: "Option D"
+  # ... more questions
+---
+
+Optional intro text displayed before the exam starts.
+
+**Passing Score:** 70%
+```
+
+Then add the exam to `index.html` in the appropriate section.
+
+---
+
+## Result Format
+
+Exam results can be downloaded as JSON:
+
+```json
+{
+  "submission": {
+    "exam_id": "EXAM-INSPIRED-001",
+    "student_name": "John Doe",
+    "responses": ["A", "C", "D", "B", "A", "C", "D", "B", "C", "D"],
+    "timestamp": "2026-02-02T12:00:00.000Z"
+  },
+  "grade_result": {
+    "exam_id": "EXAM-INSPIRED-001",
+    "exam_title": "INSPIRED: How to Create Tech Products Customers Love",
+    "student_name": "John Doe",
+    "score_percentage": 80,
+    "passed": true,
+    "correct_answers": 8,
+    "total_questions": 10,
+    "missed_questions": [
+      { "question": 3, "yours": "B", "correct": "D" },
+      { "question": 7, "yours": "A", "correct": "D" }
+    ]
+  }
+}
+```
+
+---
+
+## CLI Grading Tools
+
+For batch grading or integration, Node.js graders are available:
+
+### Data Governance Grader
+```bash
+cd DataGovExam
+node grader.js submission.json
+# Or grade from command line
+node grader.js --exam-id EXAM-DATAGOVERNANCE-001 --answers A,C,D,C,A,... --student "Name"
+```
+
+### WSJF Grader
+```bash
+cd WSJFExam
+node "grader (1).js" submission.json
+```
+
+---
+
+## Deployment
+
+### GitHub Pages
+1. Push to GitHub repository
+2. Go to Settings > Pages
+3. Select "Deploy from a branch" > `main` > `/ (root)`
+4. Site available at `https://[username].github.io/Product-Exams/`
+
+### Docker Production
+```bash
+docker build -t exam-system .
+docker run -p 4000:4000 exam-system
+```
+
+### Static Hosting (Netlify, Vercel, etc.)
+1. Build: `bundle exec jekyll build`
+2. Deploy contents of `_site/` directory
+
+---
+
+## Docker Commands
+
+```bash
+# Start development server
+docker-compose up
+
+# Rebuild after Gemfile changes
+docker-compose build
 
 # Stop containers
 docker-compose down
 
-# Rebuild container after changes
-docker-compose up --build
+# Build static site only
+docker-compose --profile build run jekyll-build
 ```
 
-## 📞 Grading with Node.js Grader
+---
 
-The JSON files exported from this system are compatible with the Node.js grader:
+## Technology Stack
 
-```bash
-node grader.js downloaded_result.json
-```
+| Component | Technology |
+|-----------|------------|
+| Static Site Generator | Jekyll 4.x |
+| Container | Docker (Ruby 3.2-slim) |
+| Frontend | HTML5, CSS3 (custom properties), Vanilla JS |
+| CLI Tools | Node.js |
+| Hosting | GitHub Pages |
+| SEO | jekyll-seo-tag |
 
-## 🌐 Deployment Options
-
-### GitHub Pages
-
-1. Push to GitHub
-2. Enable GitHub Pages in repository settings
-3. Select `main` branch and root folder
-
-### Static Hosting (Netlify, Vercel, etc.)
-
-1. Build the site: `bundle exec jekyll build`
-2. Deploy the `_site` folder
-
-### Docker Container
-
-Use the included Dockerfile for container-based deployment.
+---
 
 ## License
 
