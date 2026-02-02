@@ -1,0 +1,22 @@
+---
+layout: default
+title: Home
+---
+
+<div class="card welcome-section">
+    <h2>Welcome!</h2>
+    <p>Test your knowledge of Silicon Valley Product Group books.</p>
+</div>
+
+<div class="card exam-list">
+    <h3>Select an Exam</h3>
+    <div class="exam-select-grid">
+        {% for exam in site.exams %}
+        <a href="{{ exam.url | relative_url }}" class="card exam-option">
+            <h3>{{ exam.title | split: ':' | first }}</h3>
+            <p>{{ exam.title | split: ':' | last | strip }}</p>
+            <small>{{ exam.author }}</small>
+        </a>
+        {% endfor %}
+    </div>
+</div>

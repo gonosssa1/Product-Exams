@@ -8,6 +8,10 @@ url: ""
 markdown: kramdown
 highlighter: rouge
 
+# Plugins
+plugins:
+  - jekyll-seo-tag
+
 # Exclude from processing
 exclude:
   - Gemfile

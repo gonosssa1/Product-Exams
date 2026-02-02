@@ -1,0 +1,77 @@
+---
+layout: default
+---
+<div class="card">
+    <h2 class="mb-1">{{ page.title }}</h2>
+    <p class="exam-meta">
+        <strong>Author:</strong> {{ page.author }}<br>
+        <strong>Questions:</strong> {{ page.questions | size }}
+    </p>
+
+    <div id="exam-intro">
+        {{ content }}
+        <div class="mt-2">
+            <button class="btn btn-primary" onclick="initExam()">Start Exam</button>
+            <a href="{{ '/' | relative_url }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+
+    <div id="exam-name-form" class="hidden">
+        <form onsubmit="return submitName(event)">
+            <div class="form-group">
+                <label for="student-name">Enter Your Full Name:</label>
+                <input type="text" id="student-name" required placeholder="John Doe">
+            </div>
+            <button type="submit" class="btn btn-primary">Begin Exam</button>
+        </form>
+    </div>
+
+    <div id="exam-container" class="hidden">
+        <div class="progress-bar"><div class="progress" id="progress"></div></div>
+        <p class="text-center mb-1">Question <span id="current-q">1</span> of <span id="total-q">{{ page.questions | size }}</span></p>
+        <div id="question-container"></div>
+    </div>
+
+    <div id="exam-results" class="hidden">
+        <h2 class="text-center mb-1">Exam Results</h2>
+        <div id="result-info"></div>
+        <div class="score-circle" id="score-circle">0%</div>
+        <div id="result-details" class="text-center"></div>
+        <div id="missed-questions" class="mt-2"></div>
+        <div class="nav-buttons mt-2">
+            <button class="btn btn-secondary" onclick="downloadResults()">Download JSON</button>
+            <a href="{{ '/' | relative_url }}" class="btn btn-primary">Take Another Exam</a>
+        </div>
+    </div>
+</div>
+
+<script>
+const EXAM_DATA = {
+    id: "{{ page.exam_id }}",
+    title: "{{ page.title }}",
+    author: "{{ page.author }}",
+    answers: {{ page.answers | jsonify }},
+    questions: {{ page.questions | jsonify }}
+};
+
+function initExam() {
+    document.getElementById('exam-intro').classList.add('hidden');
+    document.getElementById('exam-name-form').classList.remove('hidden');
+    const savedName = localStorage.getItem('svpg_student_name');
+    if (savedName) document.getElementById('student-name').value = savedName;
+}
+
+function submitName(e) {
+    e.preventDefault();
+    const name = document.getElementById('student-name').value.trim();
+    if (!name) return false;
+    localStorage.setItem('svpg_student_name', name);
+    window.studentName = name;
+    window.currentQuestion = 0;
+    window.studentAnswers = [];
+    document.getElementById('exam-name-form').classList.add('hidden');
+    document.getElementById('exam-container').classList.remove('hidden');
+    showQuestion();
+    return false;
+}
+</script>
