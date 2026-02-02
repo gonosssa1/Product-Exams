@@ -1,8 +1,8 @@
 # SVPG Book Exam System - Jekyll Configuration
 title: SVPG Book Exam System
 description: Multiple choice exams for Silicon Valley Product Group books
-baseurl: ""
-url: ""
+baseurl: "/Product-Exams"
+url: "https://gonosssa1.github.io"
 
 # Build settings
 markdown: kramdown
