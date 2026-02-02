@@ -1,6 +1,6 @@
-# SVPG Book Exam System - Jekyll Configuration
-title: SVPG Book Exam System
-description: Multiple choice exams for Silicon Valley Product Group books
+# Content Familiarity Exam System - Jekyll Configuration
+title: Content Familiarity Exam System
+description: Multiple choice exams for professional certification and content familiarity
 baseurl: "/Product-Exams"
 url: "https://gonosssa1.github.io"
 
