@@ -11,7 +11,7 @@ title: Home
 <div class="card exam-list">
     <h3>Select an Exam</h3>
     <div class="exam-select-grid four-columns">
-        {% assign exam_order = "loved,empowered,transformed,inspired" | split: "," %}
+        {% assign exam_order = "inspired,empowered,loved,transformed" | split: "," %}
         {% for exam_name in exam_order %}
             {% assign exam = site.exams | where: "slug", exam_name | first %}
             <a href="{{ exam.url | relative_url }}" class="card exam-option">
