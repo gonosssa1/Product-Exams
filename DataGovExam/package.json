@@ -1,0 +1,18 @@
+{
+  "name": "data-governance-exam",
+  "version": "1.0.0",
+  "description": "Multiple choice exam system for the Data Governance Primer based on DAMA-DMBOK, ISO 38505, and Gartner 2025 Trends",
+  "main": "exam-app.js",
+  "scripts": {
+    "start": "node exam-app.js",
+    "grade": "node grader.js"
+  },
+  "keywords": [
+    "exam",
+    "data-governance",
+    "DAMA-DMBOK",
+    "assessment"
+  ],
+  "author": "Data Governance Exam System",
+  "license": "MIT"
+}
