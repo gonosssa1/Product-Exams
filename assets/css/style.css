@@ -1,14 +1,16 @@
 :root {
-    --primary-color: #2563eb;
-    --primary-dark: #1d4ed8;
+    --primary-color: #003399;
+    --primary-dark: #002266;
+    --accent-color: #0088A1;
+    --accent-dark: #006677;
     --success-color: #22c55e;
     --danger-color: #ef4444;
-    --background: #f8fafc;
+    --background: #f0f4f8;
     --card-bg: #ffffff;
     --text-primary: #1e293b;
     --text-secondary: #64748b;
-    --border-color: #e2e8f0;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --border-color: #d0dae4;
+    --shadow: 0 4px 6px -1px rgba(0, 51, 153, 0.1);
 }
 
 * {
@@ -132,8 +134,8 @@ body {
 }
 
 .option:hover {
-    border-color: var(--primary-color);
-    background: #f0f7ff;
+    border-color: var(--accent-color);
+    background: #e6f4f7;
 }
 
 .option input {
@@ -167,7 +169,7 @@ body {
 
 .progress {
     height: 100%;
-    background: var(--primary-color);
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
     border-radius: 4px;
     transition: width 0.3s;
 }
@@ -220,6 +222,10 @@ body {
     gap: 1rem;
 }
 
+.exam-select-grid.four-columns {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .exam-option {
     text-align: center;
     padding: 1.5rem;
@@ -230,11 +236,12 @@ body {
 }
 
 .exam-option:hover {
-    background: #f0f7ff;
+    background: #e6f4f7;
+    border-color: var(--accent-color);
 }
 
 .exam-option h3 {
-    color: var(--primary-color);
+    color: var(--accent-color);
     margin-bottom: 0.5rem;
 }
 

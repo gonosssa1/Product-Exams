@@ -10,13 +10,15 @@ title: Home
 
 <div class="card exam-list">
     <h3>Select an Exam</h3>
-    <div class="exam-select-grid">
-        {% for exam in site.exams %}
-        <a href="{{ exam.url | relative_url }}" class="card exam-option">
-            <h3>{{ exam.title | split: ':' | first }}</h3>
-            <p>{{ exam.title | split: ':' | last | strip }}</p>
-            <small>{{ exam.author }}</small>
-        </a>
+    <div class="exam-select-grid four-columns">
+        {% assign exam_order = "loved,empowered,transformed,inspired" | split: "," %}
+        {% for exam_name in exam_order %}
+            {% assign exam = site.exams | where: "slug", exam_name | first %}
+            <a href="{{ exam.url | relative_url }}" class="card exam-option">
+                <h3>{{ exam.title | split: ':' | first }}</h3>
+                <p>{{ exam.title | split: ':' | last | strip }}</p>
+                <small>{{ exam.author }}</small>
+            </a>
         {% endfor %}
     </div>
 </div>
