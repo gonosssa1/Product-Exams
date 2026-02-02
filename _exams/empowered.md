@@ -3,25 +3,25 @@ title: "EMPOWERED: Ordinary People, Extraordinary Products"
 author: "Marty Cagan & Chris Jones"
 exam_id: "EXAM-EMPOWERED-001"
 description: "Test your knowledge of product leadership principles from EMPOWERED"
-answers: ["B", "B", "B", "B", "C", "B", "B", "B", "B", "B"]
+answers: ["A", "D", "C", "B", "C", "A", "D", "B", "C", "D"]
 questions:
   - text: "According to EMPOWERED, what is the root cause of why companies fail to innovate?"
     options:
-      A: "Lack of talented engineers"
-      B: "Weak product leadership, not weak teams"
+      A: "Weak product leadership, not weak teams"
+      B: "Lack of talented engineers"
       C: "Insufficient funding"
       D: "Too much competition"
   - text: "What does EMPOWERED identify as the single most important skill for product leaders?"
     options:
       A: "Technical expertise"
-      B: "Coaching"
-      C: "Financial management"
-      D: "Public speaking"
+      B: "Financial management"
+      C: "Public speaking"
+      D: "Coaching"
   - text: "What are the three critical differences between the best companies and the rest?"
     options:
       A: "Salary, Benefits, Culture"
-      B: "Role of Technology, Role of Product Leaders, Purpose of Product Teams"
-      C: "Size, Industry, Location"
+      B: "Size, Industry, Location"
+      C: "Role of Technology, Role of Product Leaders, Purpose of Product Teams"
       D: "Revenue, Profit, Growth"
   - text: "What are the three dimensions of the coaching framework mentioned in EMPOWERED?"
     options:
@@ -37,16 +37,16 @@ questions:
       D: "As little as possible"
   - text: "What is the 'Empowerment Litmus Test' in EMPOWERED?"
     options:
-      A: "Can the team hire their own members?"
-      B: "Can the team decide the best way to solve their assigned problems?"
+      A: "Can the team decide the best way to solve their assigned problems?"
+      B: "Can the team hire their own members?"
       C: "Does the team have unlimited budget?"
       D: "Is the team larger than 10 people?"
   - text: "According to EMPOWERED, who owns Product Vision and Strategy?"
     options:
       A: "Individual contributor Product Managers"
-      B: "Product LEADERS (not IC PMs)"
-      C: "Engineering teams"
-      D: "External consultants"
+      B: "Engineering teams"
+      C: "External consultants"
+      D: "Product LEADERS (not IC PMs)"
   - text: "What does the 'Context & Coaching' leadership model emphasize over 'Command & Control'?"
     options:
       A: "Telling teams what to build"
@@ -56,15 +56,15 @@ questions:
   - text: "What Bill Campbell quote does EMPOWERED reference about leadership?"
     options:
       A: "Move fast and break things"
-      B: "Leadership is about recognizing greatness in everyone and creating an environment where it can emerge"
-      C: "The customer is always right"
+      B: "The customer is always right"
+      C: "Leadership is about recognizing greatness in everyone and creating an environment where it can emerge"
       D: "Fail fast, fail often"
   - text: "According to EMPOWERED, how is Product Vision used as a tool?"
     options:
       A: "Only for financial planning"
-      B: "For recruiting, evangelism, decision-making, motivation, and communication"
-      C: "Only for investor presentations"
-      D: "Only for marketing campaigns"
+      B: "Only for investor presentations"
+      C: "Only for marketing campaigns"
+      D: "For recruiting, evangelism, decision-making, motivation, and communication"
 ---
 
 Test your understanding of **EMPOWERED: Ordinary People, Extraordinary Products** by Marty Cagan and Chris Jones.
